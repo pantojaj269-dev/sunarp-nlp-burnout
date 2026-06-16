@@ -28,7 +28,8 @@ const transporter = nodemailer.createTransport({
   },
   tls: {
     rejectUnauthorized: false
-  }
+  },
+  family:4
 });
 // =========================================================================
 
