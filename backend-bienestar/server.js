@@ -19,15 +19,14 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // =========================================================================
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // Esto obliga a usar una conexión segura que Render permite
+  port: 587, // Cambiamos del 465 al 587
+  secure: false, // OJO: Para el puerto 587 esto DEBE ser false
+  requireTLS: true, // Esto obliga a iniciar la seguridad STARTTLS
   auth: {
-    // Es mejor usar la variable de entorno, pero si prefieres dejarlo fijo, está bien
-    user: process.env.EMAIL_USER || 'fushiguro101010@gmail.com', 
+    user: process.env.EMAIL_USER || 'fushiguro101010@gmail.com',
     pass: process.env.EMAIL_PASS
   },
   tls: {
-    // Esto evita que el servidor en la nube rechaze el certificado de Gmail
     rejectUnauthorized: false
   }
 });
