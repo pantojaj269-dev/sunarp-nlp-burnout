@@ -18,10 +18,17 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // 🔴 ZONA DE CONFIGURACIÓN DE CORREO (NODEMAILER) 🔴
 // =========================================================================
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // Esto obliga a usar una conexión segura que Render permite
   auth: {
-    user: 'fushiguro101010@gmail.com', // <-- CAMBIA ESTO por tu Gmail emisor
-    pass: process.env.EMAIL_PASS // <-- CAMBIA ESTO por tu clave de 16 letras (sin espacios)
+    // Es mejor usar la variable de entorno, pero si prefieres dejarlo fijo, está bien
+    user: process.env.EMAIL_USER || 'fushiguro101010@gmail.com', 
+    pass: process.env.EMAIL_PASS
+  },
+  tls: {
+    // Esto evita que el servidor en la nube rechaze el certificado de Gmail
+    rejectUnauthorized: false
   }
 });
 // =========================================================================
@@ -119,7 +126,7 @@ app.post('/api/evaluaciones', async (req, res) => {
         if (clasificacion_ia === 'Alerta') {
           const mailOptions = {
             from: '"Monitor de Bienestar SUNARP" <fushiguro101010@gmail.com>', // Mismo correo emisor
-            to: 'correo_gerente@gmail.com', // <-- CAMBIA ESTO por el correo que va a RECIBIR la alerta
+            to: 'alonsopantoja471@gmail.com', // <-- CAMBIA ESTO por el correo que va a RECIBIR la alerta
             subject: '⚠️ URGENTE: Alerta de Síndrome de Burnout Detectada',
             html: `
               <div style="font-family: sans-serif; border: 1px solid #e74c3c; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto;">
