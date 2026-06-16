@@ -19,20 +19,8 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // =========================================================================
 // 🔴 ZONA DE CONFIGURACIÓN DE CORREO (NODEMAILER) 🔴
 // =========================================================================
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587, // Cambiamos del 465 al 587
-  secure: false, // OJO: Para el puerto 587 esto DEBE ser false
-  requireTLS: true, // Esto obliga a iniciar la seguridad STARTTLS
-  auth: {
-    user: process.env.EMAIL_USER || 'fushiguro101010@gmail.com',
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  },
-  family:4
-});
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 // =========================================================================
 
 // Configurar MySQL en la nube (Aiven)
@@ -123,12 +111,12 @@ app.post('/api/evaluaciones', async (req, res) => {
         if (err) return res.status(500).json({ error: err.message });
 
         // =========================================================================
-        // 🔴 NUEVO: SISTEMA DE ALERTA TEMPRANA POR CORREO
+        // 🔴 NUEVO: SISTEMA DE ALERTA TEMPRANA CON RESEND (API)
         // =========================================================================
         if (clasificacion_ia === 'Alerta') {
-          const mailOptions = {
-            from: '"Monitor de Bienestar SUNARP" <fushiguro101010@gmail.com>', // Mismo correo emisor
-            to: 'alonsopantoja471@gmail.com', // <-- CAMBIA ESTO por el correo que va a RECIBIR la alerta
+          resend.emails.send({
+            from: 'onboarding@resend.dev', // Nota: En plan gratuito, debe ser este
+            to: 'pantojaj269@gmail.com',   // Tu correo verificado en Resend
             subject: '⚠️ URGENTE: Alerta de Síndrome de Burnout Detectada',
             html: `
               <div style="font-family: sans-serif; border: 1px solid #e74c3c; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto;">
@@ -153,14 +141,12 @@ app.post('/api/evaluaciones', async (req, res) => {
                 </p>
               </div>
             `
-          };
-
-          transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              console.error('Error al enviar el correo de alerta:', error);
-            } else {
-              console.log('📧 ¡Alerta PROACTIVA enviada exitosamente al correo!', info.response);
-            }
+          })
+          .then(data => {
+            console.log('📧 ¡Alerta PROACTIVA enviada exitosamente con Resend!', data);
+          })
+          .catch(error => {
+            console.error('Error crítico al enviar con Resend:', error);
           });
         }
         // =========================================================================
