@@ -1,0 +1,165 @@
+/* Estilos base y centrado de la aplicación */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Esto pone la barra arriba y el panel abajo */
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0; /* Quitamos el padding para que la barra negra toque los bordes */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.panel-central {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  max-width: 600px;
+  width: 100%;
+  margin: 40px auto; /* Esto asegura que el panel se centre horizontalmente */
+  box-sizing: border-box;
+}
+
+.cabecera {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.cabecera h1 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.cabecera h2 {
+  color: #0056b3;
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.mensaje-confianza {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.grupo-formulario {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+select:focus, textarea:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 0 2px rgba(0,86,179,0.1);
+}
+
+.selector-emojis {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.emoji-btn {
+  font-size: 2.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.5;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+.emoji-btn.seleccionado {
+  opacity: 1;
+  transform: scale(1.3);
+  background-color: #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.guia-texto {
+  font-size: 0.85rem;
+  color: #555;
+  background-color: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 3px solid #0056b3;
+}
+
+.guia-texto p { margin: 0 0 5px 0; font-weight: 600; }
+.guia-texto ul { margin: 0; padding-left: 20px; }
+.guia-texto li { margin-bottom: 3px; }
+
+.feedback-texto {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 20px;
+  transition: color 0.3s;
+}
+
+.feedback-corto { color: #e67e22; }
+.feedback-ideal { color: #27ae60; }
+
+.btn-enviar {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Por defecto en la página web este título corporativo estará escondido */
+.solo-visible-pdf {
+  display: none;
+}
+
+/* Pero cuando la librería html2pdf lo capture para imprimir, se activará mágicamente */
+@media print {
+  .solo-visible-pdf {
+    display: block !important;
+  }
+}
+
+.btn-enviar:hover:not(:disabled) { background-color: #004494; }
+.btn-enviar:disabled { background-color: #cccccc; cursor: not-allowed; }
