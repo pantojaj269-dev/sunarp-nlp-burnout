@@ -1,3 +1,4 @@
+import { API_URL } from './apiConfig';
 import html2pdf from 'html2pdf.js';
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -21,7 +22,7 @@ function DashboardRRHH() {
   useEffect(() => {
     // NUEVO: Solo carga los datos pesados si el usuario ya pasó el login
     if (estaLogueado) {
-      fetch('http://localhost:3000/api/evaluaciones')
+      fetch(`${API_URL}/api/evaluaciones`)
         .then(res => res.json())
         .then(data => {
           setDatosReales(data);
@@ -38,7 +39,7 @@ function DashboardRRHH() {
     setErrorLogin('');
 
     try {
-      const respuesta = await fetch('http://localhost:3000/api/login', {
+      const respuesta = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ usuario, password })

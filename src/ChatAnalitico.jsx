@@ -1,3 +1,4 @@
+import { API_URL } from './apiConfig';
 import React, { useState } from 'react';
 
 function ChatAnalitico() {
@@ -17,7 +18,7 @@ function ChatAnalitico() {
     setCargando(true);
 
     try {
-      const res = await fetch('http://localhost:3000/api/chat-analitico', {
+      const res = await fetch(`${API_URL}/api/chat-analitico`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mensaje: input })

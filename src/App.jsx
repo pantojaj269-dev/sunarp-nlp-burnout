@@ -1,3 +1,4 @@
+import { API_URL } from './apiConfig';
 import { useState } from 'react';
 import './App.css'; 
 
@@ -41,8 +42,8 @@ function App() {
     const datosParaElBackend = { area, estadoAnimo, comentarios };
     
     try {
-      const respuesta = await fetch('http://localhost:3000/api/evaluaciones', {
-        method: 'POST',
+      const respuesta = await fetch(`${API_URL}/api/evaluaciones`, {
+    method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
