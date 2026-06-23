@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 import ChatAnalitico from './ChatAnalitico';
+// NUEVO: Importamos los estilos dedicados para este componente
+import './DashboardRRHH.css';
 
 function DashboardRRHH() {
   // NUEVO: Estados para el Login
@@ -66,19 +68,19 @@ function DashboardRRHH() {
   // NUEVO: PANTALLA DE LOGIN (Si no está logueado, retorna esto y no avanza)
   if (!estaLogueado) {
     return (
-      <div style={{ minHeight: '100vh', backgroundColor: '#f4f6f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}>
-        <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.05)', width: '100%', maxWidth: '400px', textAlign: 'center' }}>
+      <div className="login-container">
+        <div className="login-box">
           
-          <h2 style={{ color: '#2c3e50', marginBottom: '10px' }}>Acceso Restringido</h2>
-          <p style={{ color: '#7f8c8d', marginBottom: '30px', fontSize: '0.9rem' }}>Portal de Recursos Humanos - SUNARP</p>
+          <h2>Acceso Restringido</h2>
+          <p>Portal de Recursos Humanos - SUNARP</p>
           
-          <form onSubmit={manejarLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <form onSubmit={manejarLogin} className="login-form">
             <input 
               type="text" 
               placeholder="Usuario" 
               value={usuario} 
               onChange={(e) => setUsuario(e.target.value)} 
-              style={{ padding: '12px', borderRadius: '8px', border: '1px solid #bdc3c7', fontSize: '1rem', outline: 'none' }}
+              className="login-input"
               required
             />
             <input 
@@ -86,16 +88,16 @@ function DashboardRRHH() {
               placeholder="Contraseña" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
-              style={{ padding: '12px', borderRadius: '8px', border: '1px solid #bdc3c7', fontSize: '1rem', outline: 'none' }}
+              className="login-input"
               required
             />
             
-            {errorLogin && <div style={{ color: '#e74c3c', fontSize: '0.9rem', backgroundColor: '#fdedf0', padding: '10px', borderRadius: '6px' }}>{errorLogin}</div>}
+            {errorLogin && <div className="login-error">{errorLogin}</div>}
             
             <button 
               type="submit" 
               disabled={cargandoLogin}
-              style={{ padding: '14px', borderRadius: '8px', border: 'none', backgroundColor: cargandoLogin ? '#95a5a6' : '#2980b9', color: 'white', fontSize: '1rem', fontWeight: 'bold', cursor: cargandoLogin ? 'not-allowed' : 'pointer', marginTop: '10px', transition: 'background-color 0.3s' }}
+              className="login-button"
             >
               {cargandoLogin ? 'Verificando...' : 'Ingresar al Dashboard'}
             </button>
@@ -109,7 +111,7 @@ function DashboardRRHH() {
   // A PARTIR DE AQUÍ ES TU CÓDIGO ORIGINAL DEL DASHBOARD
   // Pantalla de carga mientras trae los datos (Ya pasó el login)
   if (cargando) {
-    return <div style={{ padding: '50px', textAlign: 'center', fontSize: '1.5rem', fontFamily: 'sans-serif', color: '#7f8c8d' }}>⏳ Procesando métricas de la Base de Datos...</div>;
+    return <div className="dashboard-loading">⏳ Procesando métricas de la Base de Datos...</div>;
   }
 
   // 2. MOTOR DE CÁLCULO DINÁMICO
@@ -167,19 +169,19 @@ function DashboardRRHH() {
   };
 
   return (
-    <div style={{ padding: '30px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+    <div className="dashboard-container">
       
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', borderBottom: '2px solid #eee', paddingBottom: '20px' }}>
-        <div>
-          <h1 style={{ color: '#2c3e50', margin: '0 0 5px 0' }}>Panel Analítico de Bienestar (En Vivo)</h1>
-          <p style={{ color: '#7f8c8d', margin: 0 }}>Datos extraídos de MySQL - Total Registros: {datosReales.length}</p>
+      <header className="dashboard-header">
+        <div className="title-block">
+          <h1>Panel Analítico de Bienestar</h1>
+          <p>Datos en vivo desde MySQL - Total Registros: {datosReales.length}</p>
         </div>
         
-        <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+        <div className="actions-block">
           <select 
             value={areaActiva} 
             onChange={(e) => setAreaActiva(e.target.value)}
-            style={{ padding: '12px', borderRadius: '8px', border: '1px solid #bdc3c7', fontSize: '1rem', outline: 'none' }}
+            className="area-filter"
           >
             <option value="global">Vista Global</option>
             <option value="mesa_partes">Mesa de Partes</option>
@@ -188,18 +190,16 @@ function DashboardRRHH() {
             <option value="asesoria">Asesoría Jurídica</option>
           </select>
           
-          {/* NUEVO: Botón de Exportación a PDF */}
           <button 
             onClick={exportarAPDF}
-            style={{ padding: '12px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#27ae60', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}
+            className="header-button export-btn"
           >
             📊 Exportar PDF
           </button>
 
-          {/* Botón para cerrar sesión */}
           <button 
             onClick={() => { setEstaLogueado(false); setUsuario(''); setPassword(''); }}
-            style={{ padding: '12px 20px', borderRadius: '8px', border: '1px solid #e74c3c', backgroundColor: 'transparent', color: '#e74c3c', cursor: 'pointer', fontWeight: 'bold' }}
+            className="header-button logout-btn"
           >
             Cerrar Sesión
           </button>
@@ -226,22 +226,22 @@ function DashboardRRHH() {
 
         {/* KPIs */}
         <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
-          <div style={{ flex: 1, backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', borderLeft: `5px solid ${kpiBienestar > 70 ? '#2ecc71' : '#e74c3c'}` }}>
+          <div style={{ flex: 1, backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', border: '1px solid #a9d0ff', borderLeft: `5px solid ${kpiBienestar > 70 ? '#2ecc71' : '#e74c3c'}` }}>
             <h3 style={{ margin: '0 0 10px 0', color: '#7f8c8d' }}>Índice de Bienestar</h3>
             <h2 style={{ margin: 0, fontSize: '3rem', color: '#2c3e50' }}>{kpiBienestar}%</h2>
           </div>
-          <div style={{ flex: 1, backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+          <div style={{ flex: 1, backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', border: '1px solid #a9d0ff' }}>
             <h3 style={{ margin: '0 0 10px 0', color: '#7f8c8d' }}>Participación (Muestras)</h3>
             <h2 style={{ margin: 0, fontSize: '3rem', color: '#2c3e50' }}>{datosFiltrados.length}</h2>
           </div>
-          <div style={{ flex: 1, backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', borderLeft: `5px solid ${riesgo === 'Alto' ? '#e74c3c' : '#2ecc71'}` }}>
+          <div style={{ flex: 1, backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', border: '1px solid #a9d0ff', borderLeft: `5px solid ${riesgo === 'Alto' ? '#e74c3c' : '#2ecc71'}` }}>
             <h3 style={{ margin: '0 0 10px 0', color: '#7f8c8d' }}>Riesgo Actual</h3>
             <h2 style={{ margin: 0, fontSize: '3rem', color: '#2c3e50' }}>{datosFiltrados.length === 0 ? 'S/D' : riesgo}</h2>
           </div>
         </div>
 
         {/* GRÁFICO MASLACH */}
-        <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '30px' }}>
+        <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', marginBottom: '30px', border: '1px solid #a9d0ff' }}>
           <h3 style={{ margin: '0 0 25px 0', color: '#2c3e50' }}>Dimensiones de Maslach vs Saludable</h3>
           <div style={{ height: '350px', width: '100%' }}>
             <ResponsiveContainer width="100%" height="100%">
@@ -259,19 +259,19 @@ function DashboardRRHH() {
         </div>
 
         {/* TABLA DE COMENTARIOS */}
-        <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '30px' }}>
+        <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', marginBottom: '30px', border: '1px solid #a9d0ff' }}>
           <h3 style={{ margin: '0 0 20px 0', color: '#2c3e50' }}>Buzón de Voces</h3>
           <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#f8f9fa', color: '#7f8c8d' }}>
-                <th style={{ padding: '15px', borderBottom: '2px solid #eee' }}>ID</th>
-                <th style={{ padding: '15px', borderBottom: '2px solid #eee' }}>Comentario</th>
-                <th style={{ padding: '15px', borderBottom: '2px solid #eee' }}>Clasificación IA</th>
+                <th style={{ padding: '15px', borderBottom: '2px solid #a9d0ff' }}>ID</th>
+                <th style={{ padding: '15px', borderBottom: '2px solid #a9d0ff' }}>Comentario</th>
+                <th style={{ padding: '15px', borderBottom: '2px solid #a9d0ff' }}>Clasificación IA</th>
               </tr>
             </thead>
             <tbody>
               {comentariosFiltrados.length > 0 ? comentariosFiltrados.map(c => (
-                <tr key={c.id} style={{ borderBottom: '1px solid #eee' }}>
+                <tr key={c.id} style={{ borderBottom: '1px solid #a9d0ff' }}>
                   <td style={{ padding: '15px', color: '#95a5a6' }}>#{c.id}</td>
                   <td style={{ padding: '15px', fontStyle: 'italic', color: '#34495e', maxWidth: '400px', wordWrap: 'break-word', overflowWrap: 'break-word'}}>"{c.texto}"</td>
                   <td style={{ padding: '15px', color: c.color, fontWeight: 'bold' }}>{c.tag}</td>

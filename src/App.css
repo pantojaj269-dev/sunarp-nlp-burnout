@@ -1,3 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+/* ============================================= */
+/* ESTILOS PARA LA NUEVA CABECERA DE NAVEGACIÓN  */
+/* ============================================= */
+.app-header {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #a9d0ff; /* Azul más fiesta */
+  box-sizing: border-box;
+  position: sticky; /* La dejamos fija arriba */
+  top: 0;
+  z-index: 1000;
+}
+
+/* Contenedor para centrar el contenido y que no se pegue a los bordes */
+.header-content-wrapper {
+  display: flex;
+  justify-content: center; /* Centramos la navegación ahora que no hay logo */
+  align-items: center;
+  max-width: 1200px; /* Ancho máximo alineado con el contenido principal */
+  margin: 0 auto; /* Centra el contenedor en la página */
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.app-header nav {
+  display: flex;
+  background-color: #e9ecef; /* Un gris un poco más neutro para el fondo */
+  border-radius: 8px; /* Bordes redondeados para el contenedor */
+  padding: 5px; /* Aumentamos el espacio para que respire */
+  /* Quitamos el borde, el contraste de color es suficiente */
+}
+
+.app-header .nav-link {
+  color: #5a6470; /* Un color de texto ligeramente más suave */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif; /* Fuente llamativa para navegación */
+  padding: 10px 22px; /* Más padding para un look más espacioso */
+  border: none; /* Aseguramos que no haya bordes */
+  background-color: transparent; /* Los inactivos no tienen fondo para mayor contraste */
+  /* Transiciones suaves y profesionales para todos los cambios */
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 6px; /* Bordes redondeados para cada enlace */
+}
+
+.app-header .nav-link:hover:not(.active) {
+  background-color: #dfe3e7; /* Un hover un poco más oscuro para mejor feedback */
+  color: #0056b3;
+  /* Efecto sutil de "levantamiento" al pasar el cursor */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Estilo para el enlace de la página activa */
+.app-header .nav-link.active {
+  color: #0056b3;
+  background-color: #ffffff; /* Fondo blanco para que resalte */
+  /* Una sombra más suave y moderna para un efecto premium */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.06);
+}
+
 /* Estilos base y centrado de la aplicación */
 #root {
   width: 100%;
@@ -7,7 +71,8 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Fuente base elegante y legible */
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f2f5;
   margin: 0;
   padding: 0; /* Quitamos el padding para que la barra negra toque los bordes */
@@ -18,8 +83,9 @@ body {
 .panel-central {
   background-color: #ffffff;
   padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-radius: 16px; /* Bordes un poco más suaves */
+  border: 1px solid #a9d0ff; /* Azul más fiesta */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04); /* Sombra más sutil */
   max-width: 600px;
   width: 100%;
   margin: 40px auto; /* Esto asegura que el panel se centre horizontalmente */
@@ -28,27 +94,33 @@ body {
 
 .cabecera {
   text-align: center;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Aumentamos el espacio inferior */
 }
 
 .cabecera h1 {
-  color: #333;
+  font-family: 'Poppins', sans-serif; /* Fuente de alto impacto para títulos */
+  color: #2c3e50; /* Un negro más suave */
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  margin: 0; /* Quitamos márgenes por defecto */
 }
 
 .cabecera h2 {
+  font-family: 'Poppins', sans-serif;
   color: #0056b3;
   font-size: 1.2rem;
-  margin-top: 0;
+  margin-top: 4px; /* Espacio respecto al título principal */
+  font-weight: 500; /* Un poco más ligero */
 }
 
 .mensaje-confianza {
   color: #666;
   font-size: 0.95rem;
   line-height: 1.5;
+  margin-top: 15px; /* Espacio respecto al subtítulo */
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #a9d0ff; /* Azul más fiesta */
 }
 
 .grupo-formulario {
@@ -58,71 +130,342 @@ body {
 
 label {
   display: block;
+  font-family: 'Poppins', sans-serif; /* Las etiquetas también resaltan */
   font-weight: 600;
   color: #444;
   margin-bottom: 8px;
 }
 
-select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-family: inherit;
-  box-sizing: border-box;
-  transition: border-color 0.3s;
+/* ================================================================= */
+/* NUEVO: Estilo moderno para el Textarea con contador integrado     */
+/* ================================================================= */
+.textarea-wrapper {
+  position: relative;
 }
 
-select:focus, textarea:focus {
+textarea {
+  width: 100%;
+  padding: 14px 18px;
+  padding-bottom: 35px; /* Espacio extra abajo para el contador */
+  border: 2px solid #a9d0ff; /* Azul más fiesta */
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  resize: vertical; /* Permitir redimensionar solo verticalmente */
+  min-height: 120px;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+textarea:focus {
   outline: none;
   border-color: #0056b3;
-  box-shadow: 0 0 0 2px rgba(0,86,179,0.1);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.2);
 }
 
-.selector-emojis {
+.textarea-counter {
+  position: absolute;
+  bottom: 12px;
+  right: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #7f8c8d;
+  background-color: transparent;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: color 0.3s ease;
+  pointer-events: none; /* Para no interferir con el resize del textarea */
+}
+
+/* ================================================================= */
+/* NUEVO: Componente de Dropdown Personalizado con Animación         */
+/* ================================================================= */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.custom-select-trigger {
   display: flex;
-  justify-content: space-between;
-  background-color: #f8f9fa;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 14px 40px 14px 18px;
+  border: 2px solid #a9d0ff; /* Azul más fiesta */
   border-radius: 8px;
-  padding: 10px 20px;
-}
-
-.emoji-btn {
-  font-size: 2.2rem;
-  background: none;
-  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #34495e;
+  background-color: #f8f9fa;
   cursor: pointer;
-  transition: all 0.2s ease;
-  opacity: 0.5;
-  padding: 5px;
-  border-radius: 50%;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.emoji-btn:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
+/* Estilo para el texto del placeholder */
+.custom-select-trigger.placeholder {
+  color: #7f8c8d;
+  font-weight: 500;
 }
 
-.emoji-btn.seleccionado {
+.custom-select-trigger:hover {
+  border-color: #8abcfd; /* Un azul un poco más oscuro en hover */
+}
+
+.custom-select-trigger:focus, .custom-select-trigger.open {
+  outline: none;
+  border-color: #0056b3;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.2); /* Sombra de foco más llamativa */
+}
+
+.custom-select-trigger::after {
+  content: '❯'; /* Usamos un carácter más moderno */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0056b3;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.custom-select-trigger.open::after {
+  transform: translateY(-50%) rotate(270deg);
+}
+
+.custom-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  /* Sombra más profesional y en capas */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border: 1px solid #a9d0ff; /* Azul más fiesta */
+  z-index: 10;
+  padding: 8px;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.5, 0, 0, 1.25);
+  transform: scale(0.98) translateY(-10px);
+  transform-origin: top;
+}
+
+.custom-options.open {
   opacity: 1;
-  transform: scale(1.3);
-  background-color: #e2e8f0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
+}
+
+.custom-option {
+  position: relative; /* Para el nuevo borde animado */
+  display: flex; /* Para alinear el texto y el checkmark */
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #34495e;
+  cursor: pointer;
+  /* Estado inicial para la animación de cada opción */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  overflow: hidden; /* Contiene el pseudo-elemento */
+}
+
+/* NUEVO: Borde lateral animado para hover y selección */
+.custom-option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 4px;
+  background-color: #0056b3;
+  border-radius: 2px;
+  transform: scaleY(0);
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* La magia de la animación escalonada */
+.custom-options.open .custom-option {
+  opacity: 1;
+  transform: translateY(0);
+}
+.custom-options.open .custom-option:nth-child(1) { transition-delay: 0.05s; }
+.custom-options.open .custom-option:nth-child(2) { transition-delay: 0.1s; }
+.custom-options.open .custom-option:nth-child(3) { transition-delay: 0.15s; }
+.custom-options.open .custom-option:nth-child(4) { transition-delay: 0.2s; }
+
+/* Checkmark para la opción seleccionada */
+.custom-option.selected {
+  color: #0056b3;
+  font-weight: 600;
+  background-color: #eaf2ff;
+}
+
+.custom-option.selected::after {
+  content: '✔';
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0056b3;
+  animation: popIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.25) forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.custom-option:hover {
+  background-color: #f0f2f5;
+  color: #0056b3;
+}
+
+/* Activamos el borde en hover o si está seleccionado */
+.custom-option:hover::before,
+.custom-option.selected::before {
+  transform: scaleY(1);
+}
+/* ================================================================= */
+/* NUEVO: Estilos para el contenido e iconos del dropdown            */
+/* ================================================================= */
+.option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.custom-select-icon {
+  font-size: 1.2rem;
+  background-color: #e9ecef;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.custom-option:hover .custom-select-icon {
+  transform: scale(1.1);
+}
+
+/* ================================================================= */
+/* NUEVO: Estilo de tarjetas para el Selector de Emojis              */
+/* ================================================================= */
+.selector-emojis {
+  display: grid;
+  /* Columnas de tamaño fijo para conservar el tamaño original */
+  grid-template-columns: repeat(5, 80px); /* Damos un poco más de ancho para el texto */
+  gap: 12px; /* Reducimos el gap para mantener un aspecto compacto */
+  justify-content: center; /* Centramos el bloque de emojis */
+}
+
+.emoji-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border: 2px solid #a9d0ff; /* Azul más fiesta */
+  border-radius: 12px;
+  padding: 8px 5px; /* Reducimos el padding para el nuevo tamaño */
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  text-align: center;
+  aspect-ratio: 1 / 1;
+}
+
+.emoji-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  border-color: #8abcfd; /* Un azul un poco más oscuro en hover */
+}
+
+.emoji-container.seleccionado {
+  background-color: #eaf2ff;
+  border-color: #0056b3;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 86, 179, 0.18);
+}
+
+.emoji-display {
+  font-size: 2.2rem; /* Tamaño de emoji más cercano al original */
+  transition: transform 0.2s ease;
+  margin-bottom: 5px; /* Menos espacio entre emoji y texto */
+}
+
+.emoji-container.seleccionado .emoji-display {
+  transform: scale(1.2);
+}
+
+.emoji-titulo {
+  font-size: 0.7rem; /* Ajustamos el texto para que quepa cómodamente */
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #555;
+  transition: color 0.2s;
+  line-height: 1.2; /* Mejoramos el interlineado si el texto se parte en dos */
+}
+
+.emoji-container.seleccionado .emoji-titulo {
+  color: #0056b3;
 }
 
 .guia-texto {
-  font-size: 0.85rem;
-  color: #555;
-  background-color: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
+  /* Minimalist: no background, relying on a subtle border */
+  border: 1px solid #a9d0ff; /* Azul más fiesta */
+  border-radius: 12px; /* Bordes más suaves y modernos */
   margin-bottom: 15px;
-  border-left: 3px solid #0056b3;
+  font-size: 0.9rem;
+  color: #5a6470;
+  padding: 20px; /* Añadimos padding para que el contenido respire */
 }
 
-.guia-texto p { margin: 0 0 5px 0; font-weight: 600; }
-.guia-texto ul { margin: 0; padding-left: 20px; }
-.guia-texto li { margin-bottom: 3px; }
+.guia-texto-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0; /* Quitamos el padding, ya está en el contenedor padre */
+  background-color: transparent; /* Hacemos el fondo transparente */
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #34495e;
+}
+
+.guia-texto-icon {
+  font-size: 1.2rem;
+}
+
+.guia-texto ul {
+  margin: 0;
+  padding: 15px 0 0 25px; /* Ajustamos la indentación de la lista */
+  list-style-type: '– '; /* Custom, elegant bullet point */
+}
+
+.guia-texto li {
+  margin-bottom: 10px; /* Un poco más de espacio entre items */
+  line-height: 1.5;
+  padding-left: 5px; /* Space after the custom bullet */
+}
+
+.guia-texto li:last-child {
+  margin-bottom: 0;
+}
 
 .feedback-texto {
   display: block;
@@ -133,8 +476,13 @@ select:focus, textarea:focus {
   transition: color 0.3s;
 }
 
-.feedback-corto { color: #e67e22; }
-.feedback-ideal { color: #27ae60; }
+/* Colores de feedback para el texto de ayuda y el contador */
+.feedback-corto { 
+  color: #e67e22; 
+}
+.feedback-ideal { 
+  color: #27ae60; 
+}
 
 .btn-enviar {
   background-color: #0056b3;
@@ -143,10 +491,42 @@ select:focus, textarea:focus {
   padding: 15px;
   width: 100%;
   font-size: 1rem;
+  font-family: 'Poppins', sans-serif; /* El botón principal también usa la fuente de impacto */
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* NUEVO: Animación de pulso para el botón cuando está activo */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3), 0 0 10px rgba(0, 86, 179, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 86, 179, 0.7), 0 0 30px rgba(0, 86, 179, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3), 0 0 10px rgba(0, 86, 179, 0.2);
+  }
+}
+
+/* Aplicamos la animación solo cuando el botón NO está deshabilitado */
+.btn-enviar:not(:disabled) {
+  animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+.btn-enviar:hover:not(:disabled) { 
+  background-color: #004494;
+  transform: translateY(-3px); /* Lo levantamos un poco más en hover */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.btn-enviar:disabled { 
+  background-color: #cccccc; 
+  cursor: not-allowed; 
+  /* Apagamos la animación si está deshabilitado */
+  animation: none;
 }
 
 /* Por defecto en la página web este título corporativo estará escondido */
@@ -160,6 +540,3 @@ select:focus, textarea:focus {
     display: block !important;
   }
 }
-
-.btn-enviar:hover:not(:disabled) { background-color: #004494; }
-.btn-enviar:disabled { background-color: #cccccc; cursor: not-allowed; }
